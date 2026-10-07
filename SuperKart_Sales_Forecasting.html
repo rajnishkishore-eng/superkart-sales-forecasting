@@ -12168,7 +12168,6 @@ Loaded model test R2  : 0.9279
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Points-to-note-before-executing-the-below-cells">Points to note before executing the below cells<a class="anchor-link" href="#Points-to-note-before-executing-the-below-cells">¶</a></h2><ul>
-<li>Create a GitHub account (if you don't already have one) at <a href="https://github.com">github.com</a> and generate a <strong>Personal Access Token</strong> with <strong>repo</strong> scope.</li>
 <li>The serialized model <code>superkart_model.joblib</code> has already been copied to the <code>backend_files</code> folder (see the serialization cell above).</li>
 <li><strong>Both the Flask backend and the Streamlit frontend are deployed as separate Docker containers inside a GitHub Codespace</strong> and connected through a <strong>Docker network</strong>.</li>
 </ul>
@@ -12814,7 +12813,7 @@ frontend_files/Dockerfile                     OK
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Step-1---Create-the-repository-and-push-the-files">Step 1 - Create the repository and push the files<a class="anchor-link" href="#Step-1---Create-the-repository-and-push-the-files">¶</a></h3><p>An empty <strong>public</strong> repository <a href="https://github.com/rajnishkishore-eng/superkart-sales-forecasting"><code>rajnishkishore-eng/superkart-sales-forecasting</code></a> was created on GitHub, and the files were pushed with the commands below (run from a terminal, or prefix each with <code>!</code> in Colab). Authenticate with a GitHub Personal Access Token - <strong>never commit your token</strong>.</p>
+<h3 id="Step-1---Create-the-repository-and-push-the-files">Step 1 - Create the repository and push the files<a class="anchor-link" href="#Step-1---Create-the-repository-and-push-the-files">¶</a></h3><p>An empty <strong>public</strong> repository <a href="https://github.com/rajnishkishore-eng/superkart-sales-forecasting"><code>rajnishkishore-eng/superkart-sales-forecasting</code></a> was created on GitHub, and the deployment files were pushed using the commands below.</p>
 <div class="highlight"><pre><span></span><span class="c1"># Create the deployment folders and copy the files into a fresh repo folder</span>
 mkdir<span class="w"> </span>-p<span class="w"> </span>superkart-sales-forecasting/backend_files<span class="w"> </span>superkart-sales-forecasting/frontend_files
 cp<span class="w"> </span>backend_files/app.py<span class="w"> </span>backend_files/requirements.txt<span class="w"> </span>backend_files/Dockerfile<span class="w"> </span>backend_files/superkart_model.joblib<span class="w"> </span>superkart-sales-forecasting/backend_files/
@@ -12828,9 +12827,9 @@ git<span class="w"> </span>config<span class="w"> </span>user.email<span class="
 git<span class="w"> </span>add<span class="w"> </span>.
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"SuperKart sales forecasting: Flask backend + Streamlit frontend"</span>
 
-<span class="c1"># Add the remote (token-authenticated HTTPS) and push</span>
+<span class="c1"># Add the remote and push</span>
 git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
-git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/rajnishkishore-eng/superkart-sales-forecasting.git<span class="w">   </span><span class="c1"># authenticate with a Personal Access Token when prompted</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/rajnishkishore-eng/superkart-sales-forecasting.git
 git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
 </pre></div>
 <h3 id="Step-2---Launch-a-GitHub-Codespace-and-run-both-containers">Step 2 - Launch a GitHub Codespace and run both containers<a class="anchor-link" href="#Step-2---Launch-a-GitHub-Codespace-and-run-both-containers">¶</a></h3><p>On the repository page click <strong>Code -&gt; Codespaces -&gt; Create codespace on main</strong>, then in the Codespace terminal:</p>
