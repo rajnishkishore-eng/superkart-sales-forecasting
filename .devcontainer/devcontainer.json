@@ -1,0 +1,13 @@
+{
+  "name": "SuperKart Sales Forecasting",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "forwardPorts": [7860, 8501],
+  "portsAttributes": {
+    "7860": { "label": "Flask API (backend)", "onAutoForward": "silent" },
+    "8501": { "label": "Streamlit UI (frontend)", "onAutoForward": "silent" }
+  },
+  // Start both Docker containers every time the Codespace starts
+  "postStartCommand": "bash .devcontainer/start.sh containers",
+  // Make both ports Public every time VS Code attaches to the Codespace
+  "postAttachCommand": "bash .devcontainer/start.sh public"
+}
