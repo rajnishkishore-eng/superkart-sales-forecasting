@@ -13709,23 +13709,57 @@ https://redesigned-garbanzo-96qqqwv5wrr729vj5-7860.app.github.dev/v1/predictbatc
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Key-insights">Key insights<a class="anchor-link" href="#Key-insights">¶</a></h3><ol>
-<li><strong>Product price is the #1 revenue driver.</strong> <code>Product_MRP</code> has the strongest correlation with sales (~0.79) and accounts for ~46% of the final model's feature importance. Revenue per product-store rises almost linearly with MRP.</li>
-<li><strong>Store format matters enormously.</strong> The Departmental Store (OUT003, Tier 1) earns the highest average revenue per product (~4,947), followed by Supermarket Type1 (~3,924), Supermarket Type2 (~3,299) and Food Mart (~1,763). A product placed in the Departmental Store generates ~2.8x the revenue of the same product in the Food Mart.</li>
-<li><strong>Supermarket Type2 (OUT004) is the volume engine.</strong> Despite a below-average revenue per product, it carries ~53% of all product listings and generates <strong>~51% of total revenue</strong> (~15.4M of ~30.4M). Its performance drives the chain's results.</li>
-<li><strong>City tier and store size follow standard-of-living patterns.</strong> Tier 1 &gt; Tier 2 &gt; Tier 3 on revenue per product; the Small, Tier 3 Food Mart contributes only ~6.7% of revenue.</li>
-<li><strong>Shelf space is not converting into revenue.</strong> <code>Product_Allocated_Area</code> has essentially <strong>zero correlation</strong> with sales (~0.00): products with larger display share do not sell more.</li>
-<li><strong>Product type and sugar content have little impact.</strong> Average sales are within ~10% across all 16 product types and the three sugar-content levels; heavier products (<code>Product_Weight</code>, corr ~0.74) and price matter far more than category.</li>
-<li><strong>The forecasting model is accurate for existing stores.</strong> The deployed Random Forest predicts product-store revenue with a typical error of ~287 (RMSE) / ~4% (MAPE) and R² ~0.93 on unseen products, but it does not extrapolate to new store formats (leave-one-store-out RMSE ~1,700).</li>
+<h3 id="Key-Insights">Key Insights<a class="anchor-link" href="#Key-Insights">¶</a></h3><ol>
+<li><p><strong>Product_MRP is the strongest sales-related feature in the analysis.</strong><br/>
+<code>Product_MRP</code> shows the strongest positive relationship with <code>Product_Store_Sales_Total</code>, with a correlation of approximately <strong>0.79</strong>, and it contributes about <strong>46% of the feature importance</strong> in the selected Random Forest model. Higher-priced products are therefore strongly associated with higher revenue at the product-store level.</p>
+</li>
+<li><p><strong>Revenue performance differs substantially across the four stores in the dataset.</strong><br/>
+OUT003, the Departmental Store located in Tier 1, records the highest average revenue per product-store observation at approximately <strong>4,947</strong>, followed by the Supermarket Type1 store at approximately <strong>3,924</strong>, Supermarket Type2 at approximately <strong>3,299</strong>, and the Food Mart at approximately <strong>1,763</strong>. This indicates meaningful store-level differences in revenue performance. However, because the dataset contains only four stores and several store characteristics uniquely identify individual stores, these differences should not automatically be generalized to all stores of the same format or city tier.</p>
+</li>
+<li><p><strong>OUT004 is the most important store from an overall revenue-volume perspective.</strong><br/>
+OUT004, the Supermarket Type2 store, contains approximately <strong>53% of all product listings</strong> and contributes around <strong>51% of total observed revenue</strong>, approximately <strong>15.4 million out of 30.4 million</strong>. Although its average revenue per product-store observation is lower than some other stores, its large product volume makes it a major contributor to SuperKart's overall sales performance.</p>
+</li>
+<li><p><strong>Store location, size, and format appear to be associated with revenue differences, but these effects are difficult to separate.</strong><br/>
+The data shows higher average revenue for Tier 1 observations compared with Tier 2 and Tier 3 observations, while the Small Tier 3 Food Mart contributes only about <strong>6.7% of total revenue</strong>. However, store size, store type, city tier, establishment year, and Store ID are closely linked because only four stores are present in the dataset. Therefore, these patterns should be interpreted as <strong>store-level associations rather than independent causal effects</strong>.</p>
+</li>
+<li><p><strong>Product_Allocated_Area shows little direct relationship with sales revenue in the available data.</strong><br/>
+<code>Product_Allocated_Area</code> has approximately <strong>zero linear correlation with sales</strong>. This suggests that simply allocating more display area to a product is not, by itself, associated with higher revenue in this dataset. Shelf-space decisions may therefore benefit from being combined with predicted revenue, pricing, demand, and product-performance information rather than relying only on current display allocation.</p>
+</li>
+<li><p><strong>Product category and sugar-content differences are relatively modest compared with price and other features.</strong><br/>
+Average sales across the 16 product types and the three sugar-content groups are comparatively similar, generally varying within a relatively narrow range. By contrast, <code>Product_MRP</code> and <code>Product_Weight</code> show much stronger relationships with the target variable. This suggests that pricing and product characteristics may provide more useful predictive information than broad product category labels alone.</p>
+</li>
+<li><p><strong>The selected Random Forest model performs strongly for observations similar to the stores represented in the training data.</strong><br/>
+The final Random Forest model achieves a Test RMSE of approximately <strong>286.83</strong>, Test MAPE of approximately <strong>3.93%</strong>, and Test R² of approximately <strong>0.93</strong>. This indicates strong predictive performance for unseen product-store observations drawn from the same general store environment represented in the dataset.</p>
+</li>
+<li><p><strong>The model should not yet be treated as reliable for completely new stores or unseen store formats.</strong><br/>
+The leave-one-store-out validation produces a much higher mean RMSE of approximately <strong>1,697</strong>, compared with approximately <strong>287</strong> under the regular random train-test split. This indicates that the model performs well when forecasting observations from known store structures, but its ability to generalize to entirely new stores or substantially different store formats is limited.</p>
+</li>
 </ol>
-<h3 id="Business-recommendations">Business recommendations<a class="anchor-link" href="#Business-recommendations">¶</a></h3><ol>
-<li><strong>Prioritise premium assortments in high-performing formats:</strong> expand the range of higher-MRP products in the Departmental Store and Supermarket Type1, where revenue per product is highest; use the model to shortlist high-forecast products before stocking.</li>
-<li><strong>Protect and optimise OUT004 (Supermarket Type2):</strong> as the source of half of revenue, it should get priority in supply-chain planning (safety stock, replenishment frequency) - a stock-out there has the largest revenue impact.</li>
-<li><strong>Rethink the Food Mart / Tier 3 strategy:</strong> review pricing and assortment in OUT002 (focus on value-for-money, high-velocity items) or consider format changes; its revenue per product is about one third of Tier 1.</li>
-<li><strong>Re-allocate shelf space based on forecasted revenue,</strong> not current allocation - since display area currently shows no relationship with revenue, test reallocating space from low-forecast products to high-MRP/high-forecast products and measure the uplift.</li>
-<li><strong>Use the model for quarterly inventory planning:</strong> run the batch endpoint each quarter on the planned assortment per store to set procurement volumes and regional sales targets, and monitor forecast error over time.</li>
-<li><strong>Collect data before expanding to new formats:</strong> the model is not reliable for unseen store types (e.g. Supermarket Type3). Pilot new formats, gather sales data, and retrain before relying on forecasts there.</li>
-<li><strong>Enrich the data for better forecasts:</strong> add time (week/month, seasonality), promotions, discounts and footfall data - this would turn the current cross-sectional model into a true time-based quarterly forecast and further reduce error.</li>
+<h3 id="Actionable-Business-Recommendations">Actionable Business Recommendations<a class="anchor-link" href="#Actionable-Business-Recommendations">¶</a></h3><ol>
+<li><p><strong>Use predicted revenue to support assortment and inventory decisions.</strong><br/>
+SuperKart can use the model to estimate expected revenue for planned product-store combinations before finalizing quarterly inventory. Products with stronger predicted sales can receive higher inventory priority, while lower-forecast products can be reviewed more carefully before allocating additional stock.</p>
+</li>
+<li><p><strong>Give additional operational attention to OUT004 because of its contribution to total revenue.</strong><br/>
+Since OUT004 contributes approximately half of total observed revenue, inventory availability, replenishment frequency, stock-out monitoring, and supply-chain continuity at this store should receive particular attention. Even small operational disruptions at a high-volume store could materially affect overall chain revenue.</p>
+</li>
+<li><p><strong>Review the commercial strategy of OUT002 rather than immediately attributing its performance to the Food Mart format.</strong><br/>
+OUT002 records the lowest average revenue among the four stores. Management should investigate factors such as product assortment, local customer demand, pricing, product availability, and sales mix. Because the dataset contains only one Food Mart, the analysis does not provide sufficient evidence to conclude that the store format itself is responsible for the lower performance.</p>
+</li>
+<li><p><strong>Use shelf-space allocation as an area for controlled experimentation.</strong><br/>
+Because current allocated display area shows almost no linear relationship with revenue, SuperKart should test whether reallocating space toward high-forecast or high-performing products improves sales. Rather than making a chain-wide change immediately, this could first be tested through store-level pilots and measured using sales uplift.</p>
+</li>
+<li><p><strong>Integrate the model into quarterly inventory and sales planning.</strong><br/>
+The batch prediction capability can be used on planned product-store combinations to generate quarterly sales estimates. These forecasts can support procurement quantities, replenishment planning, regional targets, and inventory prioritization. Actual sales should then be compared with predictions to continuously monitor forecast accuracy.</p>
+</li>
+<li><p><strong>Apply the model mainly to existing or comparable store environments.</strong><br/>
+The model is suitable for stores represented by the current training data, but predictions for completely new stores or unseen store formats should be treated cautiously. For new store launches, SuperKart should first collect sufficient sales data and retrain or recalibrate the model before using forecasts for major operational decisions.</p>
+</li>
+<li><p><strong>Collect additional business variables to improve future forecasting.</strong><br/>
+The current dataset is primarily cross-sectional and does not contain important time-dependent demand drivers. Future versions should include variables such as <strong>week/month, seasonality, promotions, discounts, holidays, footfall, local events, stock-outs, competitor activity, and historical product sales</strong>. These additions would allow SuperKart to build a more complete time-based forecasting system for quarterly sales planning.</p>
+</li>
+<li><p><strong>Monitor model performance after deployment.</strong><br/>
+SuperKart should track actual versus predicted revenue regularly and monitor metrics such as RMSE, MAE, MAPE, and R². If prediction error increases materially over time, this could indicate changes in customer behavior, pricing, product mix, or store operations and should trigger model review and retraining.</p>
+</li>
 </ol>
 </div>
 </div>
