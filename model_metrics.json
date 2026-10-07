@@ -1,0 +1,71 @@
+{
+  "primary_metric": "RMSE (lower is better)",
+  "best_model": "Random Forest",
+  "best_model_params": {
+    "max_depth": null,
+    "max_features": 1.0,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "n_estimators": 100
+  },
+  "tuned_rf_best_params": {
+    "model__n_estimators": 200,
+    "model__min_samples_split": 2,
+    "model__min_samples_leaf": 1,
+    "model__max_features": "log2",
+    "model__max_depth": null
+  },
+  "tuned_xgb_best_params": {
+    "model__subsample": 1.0,
+    "model__n_estimators": 200,
+    "model__max_depth": 7,
+    "model__learning_rate": 0.05,
+    "model__colsample_bytree": 1.0
+  },
+  "models": [
+    {
+      "Model": "Random Forest",
+      "Train RMSE": 107.5401,
+      "Test RMSE": 286.834,
+      "Train R2": 0.9898,
+      "Test R2": 0.9279,
+      "Test Adj. R2": 0.927,
+      "Test MAE": 109.6859,
+      "Test MAPE": 0.0393,
+      "RMSE gap (Test-Train)": 179.2939
+    },
+    {
+      "Model": "XGBoost",
+      "Train RMSE": 131.9171,
+      "Test RMSE": 302.4573,
+      "Train R2": 0.9847,
+      "Test R2": 0.9198,
+      "Test Adj. R2": 0.9188,
+      "Test MAE": 134.1258,
+      "Test MAPE": 0.05,
+      "RMSE gap (Test-Train)": 170.5401
+    },
+    {
+      "Model": "Tuned Random Forest",
+      "Train RMSE": 113.7336,
+      "Test RMSE": 305.7559,
+      "Train R2": 0.9886,
+      "Test R2": 0.9181,
+      "Test Adj. R2": 0.917,
+      "Test MAE": 149.7832,
+      "Test MAPE": 0.0566,
+      "RMSE gap (Test-Train)": 192.0222
+    },
+    {
+      "Model": "Tuned XGBoost",
+      "Train RMSE": 180.4542,
+      "Test RMSE": 288.7967,
+      "Train R2": 0.9713,
+      "Test R2": 0.9269,
+      "Test Adj. R2": 0.926,
+      "Test MAE": 118.7787,
+      "Test MAPE": 0.0433,
+      "RMSE gap (Test-Train)": 108.3425
+    }
+  ]
+}
