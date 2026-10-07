@@ -9,4 +9,3 @@ build/
 .ipynb_checkpoints/
 
 # Serialized model (~63 MB) - generate by running the notebook
-superkart_model.joblib
